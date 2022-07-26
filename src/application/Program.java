@@ -1,0 +1,63 @@
+package application;
+
+import entities.Department;
+import entities.HourContract;
+import entities.Worker;
+import entities_enums.WorkerLevel;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Program {
+
+    public static void main(String[] args) throws ParseException {
+        Locale.setDefault(Locale.US);
+        Scanner sc = new Scanner(System.in);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        System.out.print("Enter department's name: ");
+        String departmentName = sc.next();
+        System.out.println("Enter worker data:");
+        System.out.print("Name: ");
+        String workerName = sc.next();
+        System.out.print("Level: ");
+        String workerLevel = sc.next();
+        System.out.print("Base Salary: ");
+        double baseSalary = sc.nextDouble();
+        sc.nextLine();
+        Worker worker = new Worker(workerName, WorkerLevel.valueOf(workerLevel), +
+                baseSalary, new Department(departmentName));
+        System.out.print("How many contract's to this worker? ");
+        int contracts = sc.nextInt();
+        sc.nextLine();
+
+        for (int i = 1 ; i <= contracts ; i++){
+            System.out.println("Enter contract #" + i + " data:");
+            System.out.print("Date (DD/MM/YYYY): ");
+            Date contractDate = sdf.parse(sc.next());
+            System.out.print("Value per hour: ");
+            double valuePerHour = sc.nextDouble();
+            System.out.print("Duration (hours):");
+            int hours = sc.nextInt();
+            HourContract contract = new HourContract(contractDate, valuePerHour, hours);
+            worker.addContract(contract);
+        }
+        System.out.println();
+        System.out.print("Enter month and year to calculate income (MM/YYYY): ");
+        String monthAndYear = sc.next();
+        int month = Integer.parseInt(monthAndYear.substring(0, 2));
+        int year = Integer.parseInt(monthAndYear.substring(3));
+        System.out.println("Name: " + worker.getName());
+        System.out.println("Department: " + worker.getDepartment().getName());
+        System.out.println("Income for " + monthAndYear + ": " +
+                String.format("%.2f", worker.income(month, year)));
+
+        //Criação de contratos
+        //Dificuldades: Converter o date e guardar na variavel
+        //              Criação dos contratos como arrays
+        //              Manuseio de arrays e enums
+
+        sc.close();
+    }
+}
