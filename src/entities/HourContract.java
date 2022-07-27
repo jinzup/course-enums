@@ -47,5 +47,4 @@ public class HourContract {
         return valuePerHour * hours;
     }
 
-    //demonstrativo de valor total
 }

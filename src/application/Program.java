@@ -53,11 +53,6 @@ public class Program {
         System.out.println("Income for " + monthAndYear + ": " +
                 String.format("%.2f", worker.income(month, year)));
 
-        //Criação de contratos
-        //Dificuldades: Converter o date e guardar na variavel
-        //              Criação dos contratos como arrays
-        //              Manuseio de arrays e enums
-
         sc.close();
     }
 }
